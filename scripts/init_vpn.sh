@@ -1,0 +1,1 @@
+sudo openvpn client.conf
