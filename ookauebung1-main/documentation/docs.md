@@ -34,3 +34,11 @@ Given the following Model, implement a port concept:
 
 - Caching is not implemented as an external component. Instead inside the component itself.
 - Dont know yet how to access the .jar-files interfaces. (Currently just printing the available interfaces via main-method.)
+
+
+## Resources
+
+- [Proxy Pattern](https://refactoring.guru/design-patterns/proxy#:~:text=Proxy%20is%20a%20structural%20design,through%20to%20the%20original%20object.)
+- [Maven-Jar File Creation](https://www.baeldung.com/executable-jar-with-maven)
+- [Maven-Shade Plugin for dependency integration](https://maven.apache.org/plugins/maven-shade-plugin/examples/executable-jar.html)
+- [Adding mainClass in pom for compiler](https://stackoverflow.com/questions/29920434/maven-adding-mainclass-in-pom-xml-with-the-right-folder-path)
