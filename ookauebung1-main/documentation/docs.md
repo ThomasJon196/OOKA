@@ -23,3 +23,14 @@ Given the following Model, implement a port concept:
     - Included dependencies (postgresql) via maven-shade-plugin into the same jar-file.
     - when to use maven-shade vs assembly?
 6. Included get_interfaces()-Method
+
+
+## Class diagram
+
+![](class-diagram.svg)
+
+
+## Missing
+
+- Caching is not implemented as an external component. Instead inside the component itself.
+- Dont know yet how to access the .jar-files interfaces. (Currently just printing the available interfaces via main-method.)

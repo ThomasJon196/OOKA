@@ -40,15 +40,19 @@ public class HotelRetrievalProxy implements Hotelsuche {
         System.out.println("Setting Cache");
         hotelRet.set_cache(new HotelCaching());
 
-        result = hotelRet.getHotelByName("*");
+        result = hotelRet_proxy.getHotelByName("*");
         for (Hotel hotel : result) {
             System.out.println(hotel.toString());
         }
 
-        result = hotelRet.getHotelByName("*");
+        result = hotelRet_proxy.getHotelByName("*");
         for (Hotel hotel : result) {
             System.out.println(hotel.toString());
         }
+
+
+        System.out.println("Printing available interfaces:");
+        System.out.println(hotelRet_proxy.getAvailableInterfaces());
 
     }
 
