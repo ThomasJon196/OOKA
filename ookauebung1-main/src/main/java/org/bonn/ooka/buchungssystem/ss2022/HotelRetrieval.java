@@ -62,4 +62,10 @@ public class HotelRetrieval implements Hotelsuche {
 
     }
 
+    @Override
+    public List<String> getAvailableInterfaces() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAvailableInterfaces'");
+    }
+
 }
