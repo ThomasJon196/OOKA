@@ -1,7 +1,8 @@
 # OOKA - Proxy Pattern
 
-Documentation inside [Docs](documentation/docs.md)
+## Documentation
 
+Documentation inside [Docs](documentation/docs.md)
 
 ## Setup and Running
 
