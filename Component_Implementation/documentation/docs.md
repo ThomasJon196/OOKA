@@ -14,15 +14,11 @@ Given the following Model, implement a port concept:
 1. Created a Hotel-Class
 2. Added Caching interface and Class
 3. Added default Caching class which returns Null
-    - HotelRetrieval still has to check if the return value is `null`.
-    - Alternatively Caching could call DBAccess which feels wrong.
-    - [ ] Other solutions...?
+    - HotelRetrieval has to check if the return value is `null`.
 4. Added Logging functionality to Proxy-Class
 5. Created executable .jar file
     - Included dependencies (postgresql) via maven-shade-plugin into the same jar-file.
-    - [ ] when to use maven-shade vs assembly?
-6. Included get_interfaces()-Method
-    - [ ] Is the another way to get available interfaces?
+6. Included get_interfaces()-Method: Prints available methods.
 
 
 ## Class diagram
@@ -30,12 +26,15 @@ Given the following Model, implement a port concept:
 ![](class-diagram.svg)
 
 
-## Missing
+## Open questions
 
-- [ ] Asked for clarification?
-- Caching is not implemented as an external component. Instead inside the component itself.
+- Caching is not implemented as an external component yet. Instead inside the component itself.
+    -> Cache just has to be plugable from proxy. Than its considered as a seperate component!
 - Dont know yet how to access the .jar-files interfaces. (Currently just printing the available interfaces via main-method.)
+    -> All public classes are currently available from outside and can be accessed.
 - The port/interface is an internal part of the component. Not sure if this is the desired solution.
+- When to use maven-shade vs assembly?
+- Lassen sich alle public classes/interfaces als externe Schnittstelle darstellen?
 
 
 ## Resources
