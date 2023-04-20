@@ -1,4 +1,4 @@
-# OOKA - Proxy Pattern
+# OOKA - Component Implementation
 
 ## Documentation
 
