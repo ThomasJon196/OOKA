@@ -30,3 +30,6 @@
     [This stackoverflow post](https://stackoverflow.com/questions/29510159/class-getannotation-and-getannotations-doesnt-work-properly) might help
 
     > RetentionPolicy might not work properly. getAnnotations() seems to work, but getAnnotation(Class) doesnt.
+- Command line tool [Source](https://www.tutorialspoint.com/commons_cli/commons_cli_quick_guide.htm)
+- AppAssembler - Integration of dependencies into the same .jar file. [Source](http://www.mojohaus.org/appassembler/appassembler-maven-plugin/usage-program.html)
+  - The file is only executable as a `bash` / `sh` file.

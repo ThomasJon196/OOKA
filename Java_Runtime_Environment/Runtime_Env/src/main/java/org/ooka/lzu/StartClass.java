@@ -1,5 +1,5 @@
-package org.ooka.component;
+package org.ooka.lzu;
 
 public class StartClass {
-
+    
 }

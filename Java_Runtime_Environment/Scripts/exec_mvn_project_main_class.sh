@@ -1,1 +1,1 @@
-mvn exec:java -Dexec.mainClass="org.ooka.lzu.ComponentAssembler"
+mvn exec:java -Dexec.mainClass="org.ooka.lzu.RuntimeEnvironment"
