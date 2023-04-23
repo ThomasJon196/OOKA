@@ -11,6 +11,12 @@
 ![](state-diagram.svg)
 
 
+### Test ClassLoading mechanism via JUnit.
+
+- Tests inside [LZU-Tests](../Runtime_Env/src/test/java/org/ooka/lzu/RuntimeEnvironmentTest.java).
+
+
+
 ### Which criteria of the classification framework bz Crnkovic are meet by the Component-Model ?
 
 #### **Lifecycle**
