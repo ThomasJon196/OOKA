@@ -7,8 +7,15 @@ Documentation inside [Docs](documentation/docs.md)
 ## Setup and Running
 
 ```bash
-### ...
+# Inside ./Runtime_Env install project into local maven repositories.
+mvn install appassembler:assemble
+
+# Inside ./MyComponent package project (Project .jar used as example component)
+mvn package
+
+# Back in ./Runtime_Env execute Main-Class `RuntimeEnviroment` directly
+java -cp target/Java_Runtime_Env-1.0-SNAPSHOT.jar org.ooka.lzu.RuntimeEnvironment 
+
+# *Alternatively* use generated executable CLI tool
+bash target/appassembler/bin/CLI -a lzu -b start
 ```
-
-> Accessing VPN requires the client.conf file to be present in the project folder. (Downloadable via https://ux-2s18.inf.h-brs.de/faq/vpn)
-

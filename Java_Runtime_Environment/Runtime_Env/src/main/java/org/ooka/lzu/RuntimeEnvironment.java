@@ -39,11 +39,15 @@ public class RuntimeEnvironment {
         System.out.println("Stopping runtime environment");
     }
 
-    public void deployComponent(String identifier) throws Exception {
+    public void deployComponent(String path) throws Exception {
         // TODO: Set component via input argument. Jar currently hard coded.
-
-        String pathToJar = "/home/thomas/Documents/Studies/Modules/ObjektOrientierteKompArch/Codebase/Java_Runtime_Environment/MyComponent/target/MyComponent-1.0-SNAPSHOT.jar";
-
+        String pathToJar;
+        if (path != null) {
+            pathToJar = path;
+        } else {
+            pathToJar = "/home/thomas/Documents/Studies/Modules/ObjektOrientierteKompArch/Codebase/Java_Runtime_Environment/MyComponent/target/MyComponent-1.0-SNAPSHOT.jar";
+        }
+        System.out.println(pathToJar);
         JarFile jarFile = new JarFile(pathToJar);
         Enumeration<JarEntry> e = jarFile.entries();
 
@@ -64,7 +68,7 @@ public class RuntimeEnvironment {
             className = className.replace('/', '.');
             Class c = cl.loadClass(className);
 
-            System.out.println(c.getName());
+            // System.out.println(c.getName());
             Method[] meth = c.getDeclaredMethods();
             for (Method m : meth) {
                 // System.out.println("Checking method" + m.getName());
@@ -74,7 +78,7 @@ public class RuntimeEnvironment {
                     // System.out.println("Checking annotation" + a.toString());
                     if (a.toString().equals("@org.ooka.lzu.Start()")) {
                         obj = c.getConstructor().newInstance();
-                        m.invoke(obj);
+                        // m.invoke(obj);
                         components.add(new Component(c, cl));
                         // System.out.println("Invoked class: " + a.toString());
                     }
@@ -86,7 +90,7 @@ public class RuntimeEnvironment {
         }
 
         System.out.println("Deployed component");
-        
+
     }
 
     public void startComponent(String identifier) throws Exception {
@@ -98,7 +102,7 @@ public class RuntimeEnvironment {
 
                 Annotation[] anno = m.getAnnotations();
                 for (Annotation a : anno) {
-                    // System.out.println("Checking annotation" + a.toString());
+                    System.out.println("Checking annotation" + a.toString());
                     if (a.toString().equals("@org.ooka.lzu.Start()")) {
                         Object obj = c.getConstructor().newInstance();
                         m.invoke(obj);
@@ -112,6 +116,10 @@ public class RuntimeEnvironment {
         System.out.println("Started component");
     }
 
+    public ArrayList<Component> getComponents() {
+        return this.components;
+    }
+
     public static void main(String[] args) throws Exception {
 
         System.out.println("Hello, I am the Assembler!");
@@ -120,9 +128,14 @@ public class RuntimeEnvironment {
 
         RuntimeEnvironment run = RuntimeEnvironment.getInstance();
 
-        run.deployComponent("0");
+        String path_to_jar = "/home/thomas/Documents/Studies/Modules/ObjektOrientierteKompArch/Codebase/Java_Runtime_Environment/MyComponent/target/MyComponent-1.0-SNAPSHOT.jar";
+        path_to_jar = "/home/thomas/Documents/Studies/Modules/ObjektOrientierteKompArch/Codebase/Java_Runtime_Environment/Runtime_Env/components/test-component-with-start.jar";
+
+        run.deployComponent(path_to_jar);
 
         run.startComponent("0");
+
+        RuntimeEnvironment.stopRuntime();
 
         //
         // Load all .jar files inside path

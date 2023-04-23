@@ -3,18 +3,25 @@ package org.ooka.component;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
+
+public class AppTest {
+
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void testStopMethod() {
+        App app = new App();
+        int result = app.stop();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testTestMethod() {
+        App app = new App();
+        int result = app.test();
+        assertEquals(0, result);
     }
 }
