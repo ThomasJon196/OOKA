@@ -61,3 +61,6 @@
   - The file is only executable as a `bash` / `sh` file.
 - Implemented unit tests for RuntimeEnvironment [Source](https://www.baeldung.com/junit-assertions)
   - ! Some plugins dont work with maven out of the box or require additional configuration.
+- [x] Calling .getInstance() from CLI.java via command line returns different addresses of the Singleton-Runtime. What is the issue?
+  - Could not find. But starting CLI as seperate command seem to call different instances of the RuntimeEnv.
+  Solution: Run CLI-Tool as a loop which continuously asks user for input arguments. This way its always the same process which is running.
