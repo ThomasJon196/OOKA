@@ -1,0 +1,9 @@
+package org.ooka.lzu;
+
+public class LoggerImpl implements Logger {
+    
+    public void sendLog(String message) {
+        System.out.println("++++ LOG: " + message + " (" + System.currentTimeMillis() + ")");
+    }
+}
+
