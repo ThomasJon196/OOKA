@@ -2,7 +2,9 @@
 
 ## Documentation
 
-Documentation inside [Docs](documentation/docs.md)
+Documentation inside:
+- [Docs (Task 2)](documentation/docs_task2.md)
+- [Docs (Task 3)](documentation/docs_task3.md)
 
 ## Setup and Running
 
