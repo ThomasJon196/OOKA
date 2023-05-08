@@ -1,7 +1,7 @@
 # OOKA - Java Runtime Environment
 
 
-## Task answers
+## Task 2 answers
 
 
 
@@ -44,6 +44,9 @@
 
 ## LOGS
 
+### Task 2:
+
+
 - Created maven projects for `RuntimeEnvironment` & `MyComponent`. [Source](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 - Added `ComponentAssembler` & `RuntimeEnv` classes.
   - [x] Not sure how the Runtime class and Component Assembler should work together yet.
@@ -61,3 +64,11 @@
   - The file is only executable as a `bash` / `sh` file.
 - Implemented unit tests for RuntimeEnvironment [Source](https://www.baeldung.com/junit-assertions)
   - ! Some plugins dont work with maven out of the box or require additional configuration.
+- [x] Calling .getInstance() from CLI.java via command line returns different addresses of the Singleton-Runtime. What is the issue?
+  - Could not find. But starting CLI as seperate command seem to call different instances of the RuntimeEnv.
+  Solution: Run CLI-Tool as a loop which continuously asks user for input arguments. This way its always the same process which is running.
+
+### Task 3:
+
+- Added saving of component configuration via simple text-file.
+- [ ] Logger is not injected via the @Inject annotation. (Null exception)
