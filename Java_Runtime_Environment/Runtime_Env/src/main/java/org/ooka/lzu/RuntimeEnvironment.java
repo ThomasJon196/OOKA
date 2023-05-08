@@ -1,5 +1,8 @@
 package org.ooka.lzu;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -17,7 +20,7 @@ import java.util.jar.JarFile;
 public class RuntimeEnvironment {
 
     private static RuntimeEnvironment instance;
-    private ArrayList<Component> components = new ArrayList<Component>();
+    private ArrayList<Component> components = null;
 
     // Singleton Pattern
     public static RuntimeEnvironment getInstance() {
@@ -27,36 +30,36 @@ public class RuntimeEnvironment {
         return instance;
     }
 
+    private RuntimeEnvironment() {
+        components = new ArrayList<Component>();
+    }
+
     public static void startRuntime() {
-        System.out.println("Starting runtime environment");
+        System.out.println("Starting runtime environment: " + RuntimeEnvironment.getInstance());
         if (instance == null) {
+            System.out.println("Created new runtime");
             instance = new RuntimeEnvironment();
         }
     }
 
     public static void stopRuntime() {
+        System.out.println("Stopping runtime environment: " + RuntimeEnvironment.getInstance());
         instance = null;
-        System.out.println("Stopping runtime environment");
     }
 
-    public void deployComponent(String path) throws Exception {
-        // TODO: Set component via input argument. Jar currently hard coded.
+    public String deployComponent(String path) throws Exception {
+        System.out.println("Current runtime: " + RuntimeEnvironment.getInstance());
         String pathToJar;
         if (path != null) {
             pathToJar = path;
         } else {
             pathToJar = "/home/thomas/Documents/Studies/Modules/ObjektOrientierteKompArch/Codebase/Java_Runtime_Environment/MyComponent/target/MyComponent-1.0-SNAPSHOT.jar";
         }
-        System.out.println(pathToJar);
         JarFile jarFile = new JarFile(pathToJar);
         Enumeration<JarEntry> e = jarFile.entries();
 
         URL[] urls = { new URL("jar:file:" + pathToJar + "!/") };
         URLClassLoader cl = URLClassLoader.newInstance(urls);
-
-        ArrayList<Class> classes = new ArrayList<Class>();
-
-        Object obj;
 
         while (e.hasMoreElements()) {
             JarEntry je = e.nextElement();
@@ -77,28 +80,32 @@ public class RuntimeEnvironment {
                 for (Annotation a : anno) {
                     // System.out.println("Checking annotation" + a.toString());
                     if (a.toString().equals("@org.ooka.lzu.Start()")) {
-                        obj = c.getConstructor().newInstance();
-                        // m.invoke(obj);
-                        components.add(new Component(c, cl));
+                        components.add(new Component(c, cl, pathToJar));
                         // System.out.println("Invoked class: " + a.toString());
                     }
-
                 }
 
             }
 
         }
+        System.out.println("Currently deployed components: " + components);
+        String component_id = "Component_ID";
+        System.out.println("Deployed component: " + component_id);
 
-        System.out.println("Deployed component");
+        persistConfiguration();
 
+        return component_id;
     }
 
     public void startComponent(String identifier) throws Exception {
+        System.out.println("Current runtime: " + RuntimeEnvironment.getInstance());
+        // System.out.println("Checking components" + components);
         for (Component comp : components) {
-            Class c = comp.startClass;
+            Class c = comp.getStartClass();
             Method[] meth = c.getDeclaredMethods();
+            // System.out.println("Checking component: " + c.getName());
             for (Method m : meth) {
-                // System.out.println("Checking method" + m.getName());
+                // System.out.println("Checking method: " + m.getName());
 
                 Annotation[] anno = m.getAnnotations();
                 for (Annotation a : anno) {
@@ -108,12 +115,31 @@ public class RuntimeEnvironment {
                         m.invoke(obj);
                         System.out.println("Invoked class: " + a.toString());
                     }
-
                 }
-
             }
         }
-        System.out.println("Started component");
+        System.out.println("Started component.");
+    }
+
+    public void persistConfiguration() throws IOException {
+
+        // Append component ID and path to configuration file
+        String configFilePath = "./comp_config_file.txt";
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(configFilePath))) {
+            for (Component component : components) {
+                writer.println(component.getFilePath());
+            }
+        }
+        System.out.println("Saved configuration.");
+        // In case I want to save a more complex Configration
+        // Configuration configuration = new Configuration(components);
+        // String serializedConfiguration = serialize(configuration);
+        // try (FileWriter writer = new FileWriter(filePath)) {
+        // writer.write(serializedConfiguration);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
     }
 
     public ArrayList<Component> getComponents() {

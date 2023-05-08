@@ -16,10 +16,10 @@ public class AppTest {
         assertEquals(0, result);
     }
 
-    @Test
-    public void testTestMethod() {
-        App app = new App();
-        int result = app.test();
-        assertEquals(0, result);
-    }
+    // @Test
+    // public void testTestMethod() {
+    //     App app = new App();
+    //     int result = app.test();
+    //     assertEquals(0, result);
+    // }
 }

@@ -13,18 +13,28 @@ public class Component {
         LOW,
         MEDIUM,
         HIGH
-      }
-    
-    Class startClass;
-    URLClassLoader classLoader;
-    int id;
+    }
 
-    public Component(Class startClass, URLClassLoader classLoader) {
+    private static int nextId = 1;
+    private int id;
+    private Class startClass;
+    private URLClassLoader classLoader;
+    private String file_path;
+
+    public Component(Class startClass, URLClassLoader classLoader, String file_path) {
+        this.id = nextId++;
         this.startClass = startClass;
-
+        this.file_path = file_path;
         this.classLoader = classLoader;
     }
 
+    public String getFilePath() {
+        return file_path;
+    }
+
+    public Class getStartClass() {
+        return startClass;
+    }
 
     public static void main(String[] args)
             throws Exception {
