@@ -56,3 +56,13 @@ Statement 7: "Monitoring zu teuer. "
 
 Entscheidung fuer die Mischform als Architektur Schablone.
 Aufspaltung in UI, Feature und ein Datenbank Team.
+
+
+#### Context Sicht
+
+![](context-view.svg)
+
+####  Bausteinsicht 
+
+
+![](development-view.svg)
