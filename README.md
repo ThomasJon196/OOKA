@@ -1,6 +1,6 @@
 # OOKA - Object Oriented Component Architectures
 
-## Exercises
+## Topics
 
 
 1. [Component Implementation](Component_Implementation/README.md)
