@@ -9,7 +9,7 @@
 
 
 
-## Describttion
+## Description
 
 1. Implementation of a java `component` with caching and logging and packaging as a jar.
 2. Implementation of a `runtime environment` from scratch, for deployment of `components` with a annoted `@Start`-Method.
