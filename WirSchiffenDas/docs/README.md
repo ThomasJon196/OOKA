@@ -66,3 +66,53 @@ Aufspaltung in UI, Feature und ein Datenbank Team.
 
 
 ![](development-view.svg)
+
+
+### Architecture Smells and Anti Patterns
+
+Collection of Architectual Smells and Anti-Patterns that can occur during development.
+Based on Paper `Schirgi/Brenner-Quality Assurance for MS-Arch.`
+
+
+#### Architectual Smells
+
+
+1. Hard-Coded Endpoints
+
+2. Shared Persistence
+
+3. Independent deployability
+
+4. Horizontal Scalability
+
+5. Isolation of Failures
+   - Circuit Braker for isolation of failures.
+
+6. Decentralization
+   - Avoid central Orchestration. (e.g. ESB Enterprose Service Bu)
+
+
+#### Anti Patterns
+
+1. Design Anti pattern:
+   - Wrong cut: Technical split instead of business split.
+   - Cyclic Dependencies:
+   - Nano Service:
+   - Mega service:
+
+2. Implementation Anti Pattern
+    - Shared libraries
+    - Too many standards/languages/frameworks
+    - Too new technology
+
+3. Deployment Anti Pattern
+    - Manual Configuration: -> Solution: Automatic Configuration Server
+    - No CI/CD pipeline
+    - No API Gateway: Communication directly with microservices.
+    - Timeouts: Hard to find correct timeouts on how long to wait for microservice response.
+    - No API versioning: -> Solution: Different deployed APIs should be versioned.
+
+4. Monitoring Anti Pattern
+    - No Health Check
+    - Local Logging -> Sol: Central Logging service
+    - Insufficient Monitoring
