@@ -54,3 +54,4 @@ Access via: `localhost:8080/get_status`
 
 - Rest Server Service Guide: https://spring.io/guides/gs/rest-service/#scratch
 - Rest Consuming Guide: https://spring.io/guides/gs/consuming-rest/
+- Resilience4 Spring Guide: https://spring.io/guides/gs/cloud-circuit-breaker/
