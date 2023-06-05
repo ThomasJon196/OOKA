@@ -28,7 +28,7 @@ Creates executable .jar file inside `target/`-directory. Can be used as "microse
 ## Entwickeln
 
 
-### Port Wechseln
+### Port changing
 
 `application.properties` - file inside `src/main/resources/` defines server port.
 
@@ -42,6 +42,14 @@ Inside: `src/main/java/.../AnalyzingController.java`. (Same path in other projec
 
 Access via: `localhost:8080/get_status`
 
+
+
+## Order of Verification algorithm
+
+1. Fuel
+2. Gearbox
+3. Monitoring
+4. Oil
 
 ## Resources
 
