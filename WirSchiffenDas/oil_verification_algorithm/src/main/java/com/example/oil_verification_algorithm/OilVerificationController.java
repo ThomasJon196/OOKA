@@ -1,9 +1,11 @@
 package com.example.oil_verification_algorithm;
 
+import java.io.*;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -19,7 +21,7 @@ public class OilVerificationController {
 	private static final String template = "Im the OilVerificator";
 	private static String ID = "4";
 	private int counter = 0;
-	Map<String, Object> configuration;
+	MultiValueMap<String, String> configuration;
 
 	@GetMapping("/")
 	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -45,7 +47,12 @@ public class OilVerificationController {
 		map.add("result", status.toString());
 
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-		ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		try {
+			ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		} catch(IOException e) {
+			System.out.println("Status update failed. UI-Service unreachable.");
+		}
+		
 	}
 
 	@PostMapping("/oil/optional_equipment")
@@ -62,6 +69,7 @@ public class OilVerificationController {
 		this.configuration.add("configItem4", configItem4);
 
 		update_status(Status.RUNNING);
+		System.out.println("Started working..");
 
 		counter += 1;
 		if (counter % 3 == 0) {
@@ -82,11 +90,18 @@ public class OilVerificationController {
 		 * Calls an external endpoint and returns its response.
 		 */
 		final String uri = "http://localhost:8085/future";
-
+		
 		RestTemplate restTemplate = new RestTemplate();
-		String result = restTemplate.getForObject(uri, String.class);
+		// restTemplate.postForObject(url, "test", String.class);
 
-		System.out.println(result);
-		return result;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(this.configuration, headers);
+		try {
+			ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		} catch (Exception e) {
+			System.out.println("Status update failed. UI-Service unreachable.");
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.example.monitoring_verification_algorithm;
 
+import java.io.*;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -19,7 +20,7 @@ public class MonitoringVerificationController {
 	private static final String template = "Im the MonitoringVerificator";
 	private static String ID = "3";
 	private int counter = 0;
-	Map<String, Object> configuration;
+	MultiValueMap<String, String> configuration;
 
 	@GetMapping("/")
 	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -45,7 +46,11 @@ public class MonitoringVerificationController {
 		map.add("result", status.toString());
 
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-		ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		try {
+			ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		} catch (Exception e) {
+			System.out.println("Status update failed. UI-Service unreachable.");
+		}
 	}
 
 	@PostMapping("/monitoring/optional_equipment")
@@ -62,6 +67,7 @@ public class MonitoringVerificationController {
 		this.configuration.add("configItem4", configItem4);
 
 		update_status(Status.RUNNING);
+		System.out.println("Started working..");
 
 		counter += 1;
 		if (counter % 3 == 0) {
@@ -89,6 +95,10 @@ public class MonitoringVerificationController {
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(this.configuration, headers);
-		ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		try {
+			ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		} catch (Exception e) {
+			System.out.println("Status update failed. UI-Service unreachable.");
+		}
 	}
 }
