@@ -30,7 +30,7 @@ public class AnalyzingController {
 			@RequestParam("configItem2") String configItem2,
 			@RequestParam("configItem3") String configItem3, @RequestParam("configItem4") String configItem4) {
 
-		final String url = "http://localhost:8081/motor/optional_equipment";
+		final String url = "http://localhost:8081/fuel/optional_equipment";
 		RestTemplate restTemplate = new RestTemplate();
 
 		Map<String, Object> params = new HashMap<>(4);

@@ -19,6 +19,7 @@ public class FuelVerificationController {
 	private static final String template = "Im the FuelVerificator";
 	private static String ID = "1";
 	private int counter = 0;
+	MultiValueMap<String, String> configuration;
 
 	@GetMapping("/")
 	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -54,30 +55,40 @@ public class FuelVerificationController {
 			@RequestParam("configItem3") String configItem3,
 			@RequestParam("configItem4") String configItem4) throws InterruptedException {
 
+		this.configuration = new LinkedMultiValueMap<>();
+		this.configuration.add("configItem1", configItem1);
+		this.configuration.add("configItem2", configItem2);
+		this.configuration.add("configItem3", configItem3);
+		this.configuration.add("configItem4", configItem4);
+		
 		update_status(Status.RUNNING);
 
 		counter += 1;
 		if (counter % 3 == 0) {
 			TimeUnit.SECONDS.sleep(2);
+			invoke_next_algorithm();
 			update_status(Status.FAILED);
 			return "Validation error.";
 		} else {
 			TimeUnit.SECONDS.sleep(2);
+			invoke_next_algorithm();
 			update_status(Status.SUCCESS);
 			return "Fuel equipment validated.";
 		}
 	}
 
-	public String invoke_next_algorithm() {
+	public void invoke_next_algorithm() {
 		/*
 		 * Calls an external endpoint and returns its response.
 		 */
-		final String uri = "http://localhost:8083/greeting";
-
+		final String url = "http://localhost:8082/gearbox/optional_equipment";
 		RestTemplate restTemplate = new RestTemplate();
-		String result = restTemplate.getForObject(uri, String.class);
+		// restTemplate.postForObject(url, "test", String.class);
 
-		System.out.println(result);
-		return result;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(this.configuration, headers);
+		ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
 	}
 }

@@ -19,6 +19,7 @@ public class OilVerificationController {
 	private static final String template = "Im the OilVerificator";
 	private static String ID = "4";
 	private int counter = 0;
+	Map<String, Object> configuration;
 
 	@GetMapping("/")
 	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -54,15 +55,23 @@ public class OilVerificationController {
 			@RequestParam("configItem3") String configItem3,
 			@RequestParam("configItem4") String configItem4) throws InterruptedException {
 
+		this.configuration = new LinkedMultiValueMap<>();
+		this.configuration.add("configItem1", configItem1);
+		this.configuration.add("configItem2", configItem2);
+		this.configuration.add("configItem3", configItem3);
+		this.configuration.add("configItem4", configItem4);
+
 		update_status(Status.RUNNING);
 
 		counter += 1;
 		if (counter % 3 == 0) {
 			TimeUnit.SECONDS.sleep(2);
+			// invoke_next_algorithm();
 			update_status(Status.FAILED);
 			return "Validation error.";
 		} else {
 			TimeUnit.SECONDS.sleep(2);
+			// invoke_next_algorithm();
 			update_status(Status.SUCCESS);
 			return "Oil equipment validated.";
 		}
@@ -72,7 +81,7 @@ public class OilVerificationController {
 		/*
 		 * Calls an external endpoint and returns its response.
 		 */
-		final String uri = "http://localhost:8083/greeting";
+		final String uri = "http://localhost:8085/future";
 
 		RestTemplate restTemplate = new RestTemplate();
 		String result = restTemplate.getForObject(uri, String.class);
