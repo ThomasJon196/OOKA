@@ -85,11 +85,11 @@ public class OilVerificationController {
 		}
 	}
 
-	public String invoke_next_algorithm() {
+	public void invoke_next_algorithm() {
 		/*
 		 * Calls an external endpoint and returns its response.
 		 */
-		final String uri = "http://localhost:8085/future";
+		final String url = "http://localhost:8085/future";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		// restTemplate.postForObject(url, "test", String.class);
